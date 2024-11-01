@@ -35,12 +35,13 @@ function Bookcard(
         Bookcard
 
         p-10
-        rounded-lg
-        shadow-[0px_0px_20px_2px_rgba(0,0,0,1)]
+        md:rounded-lg
+        md:shadow-[0px_0px_20px_2px_rgba(0,0,0,1)]
 
         bg-bgLight
 
-        w-6/12
+        md:w-[700px]
+        w-screen
 
         font-mirage
         text-xl

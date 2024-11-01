@@ -38,7 +38,11 @@ export default function App() {
 
       const selected_searchBy: string = dropdownOptions[selectedDropdownOptionIndex];
 
-      searchBook(selected_searchBy, input_textinput.value).then(
+      searchBook(selected_searchBy, 
+        (selected_searchBy === "category") ? 
+        input_textinput.value.toUpperCase() :
+        input_textinput.value
+      ).then(
     
         (result: any) => {
           // output_textarea.value = JSON.stringify(result.data);
@@ -87,7 +91,8 @@ export default function App() {
         justify-center
         items-center
 
-        gap-5
+        md:gap-5
+        gap-0
         "
         >
           <div

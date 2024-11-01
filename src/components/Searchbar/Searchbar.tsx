@@ -46,7 +46,6 @@ export default function Searchbar(
             font-bold
 
             selection:bg-primaryLight
-            placeholder:font-normal
             "
             />
 

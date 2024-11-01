@@ -25,9 +25,12 @@ export default function Searchbar(
         Searchbar
         rounded-lg
         shadow-[0px_0px_20px_2px_rgba(0,0,0,1)]
+        m-2
 
         bg-bgLight
         flex-row
+
+        justify-between
         ">
             <input 
             type="text" 
@@ -38,6 +41,9 @@ export default function Searchbar(
             rounded-l-lg
             p-3
 
+            md:w-96
+            w-6/12
+
             bg-bgLight
 
             text-bgDark
@@ -46,6 +52,7 @@ export default function Searchbar(
             font-bold
 
             selection:bg-primaryLight
+
             "
             />
 

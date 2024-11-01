@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+@font-face {
+    font-family: "Grotesk";
+    font-weight: normal;
+    src: url("/fonts/Grotesk/AlteHaasGroteskRegular.ttf");
+}
+
+@font-face {
+    font-family: "Grotesk";
+    font-weight: bold;
+    src: url("/fonts/Grotesk/AlteHaasGroteskBold.ttf");
+}
+
+@font-face {
+    font-family: "Mirage";
+    font-weight: normal;
+    src: url("/fonts/Mirage/MADE Mirage Bold PERSONAL USE.otf");
+}
+
+@font-face {
+    font-family: "Mirage";
+    font-weight: bold;
+    src: url("/fonts/Mirage/MADE Mirage Black PERSONAL USE.otf");
+}
+
+@font-face {
+    font-family: "Mirage";
+    font-weight: light;
+    src: url("/fonts/Mirage/MADE Mirage Thin PERSONAL USE.otf");
+}

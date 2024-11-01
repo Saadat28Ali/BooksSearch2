@@ -1,12 +1,5 @@
-// React imports
-import { useState } from "react";
-
 // Component imports
-import Searchbar_Dropdown from "./Searchbar_Dropdown/Searchbar_Dropdown";
 import Dropdown from "../Dropdown/Dropdown";
-
-// Type imports
-import { optionInter } from "./Searchbar_Dropdown/Searchbar_Dropdown";
 
 // ------------------------------------------------------------------
 

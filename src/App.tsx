@@ -13,7 +13,6 @@ import { searchBook } from "../public/scripts/searchBook";
 import Searchbar from "./components/Searchbar/Searchbar";
 import Submitbutton from "./components/Submitbutton/Submitbutton";
 import Bookcard from "./components/Bookcard/Bookcard";
-import Dropdown from "./components/Dropdown/Dropdown";
 
 // Type imports
 import { bookdata_inter } from "./components/Bookcard/Bookcard";
@@ -22,9 +21,9 @@ import { bookdata_inter } from "./components/Bookcard/Bookcard";
 
 export default function App() {
 
-  const [fetchingState, setFetchingState] = useState<boolean>(false);
+  const [, setFetchingState] = useState<boolean>(false);
   const [fetchedBooks, setFetchedBooks] = useState<Array<bookdata_inter>>([]);
-  const [dropdownOptions, setDropdownOptions] = useState<Array<string>>(["Title", "Author", "Category"])
+  const [dropdownOptions, ] = useState<Array<string>>(["Title", "Author", "Category"])
   const [selectedDropdownOptionIndex, setSelectedDropdownOptionIndex] = useState<number>(0);
 
   function mainFormSubmitCallback(event: FormEvent) {

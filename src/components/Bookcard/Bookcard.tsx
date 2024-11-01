@@ -89,6 +89,8 @@ function Bookcard(
             font-bold
             text-neutral-800
             text-sm
+
+            min-w-full
             "
             > {removeUnderscores(bookdata.category)} </p>
 

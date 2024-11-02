@@ -90,7 +90,7 @@ function Bookcard(
             text-neutral-800
             text-sm
 
-            w-max
+            w-maxg
             "
             > {removeUnderscores(bookdata.category)} </p>
 

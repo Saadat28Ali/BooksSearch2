@@ -23,6 +23,9 @@ function Submitbutton(
             id={id}
             onClick={(callback) ? callback : () => {}}
             className="
+            min-w-16
+            min-h-16
+
             p-4
             rounded-lg
             shadow-[0px_0px_20px_2px_rgba(0,0,0,1)]

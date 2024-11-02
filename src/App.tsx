@@ -3,7 +3,7 @@
 import { FormEvent } from "react";
 
 // Hooks
-import { useState } from "react";
+import { useState, useEffect } from "react";
 // ----------------------------------------
 
 // Asset imports --------------------------
@@ -21,7 +21,12 @@ import { bookdata_inter } from "./components/Bookcard/Bookcard";
 
 export default function App() {
 
-  const [, setFetchingState] = useState<boolean>(false);
+  // Last input query
+  const [searchBy, setSearchBy] = useState<string>("");
+  const [searchFor, setSearchFor] = useState<string>("");
+
+  // State for fetching data
+  const [fetchingState, setFetchingState] = useState<boolean>(false);
   const [fetchedBooks, setFetchedBooks] = useState<Array<bookdata_inter>>([]);
   const [pageNo, setPageNo] = useState<number>(0);
   const [pageSize,] = useState<number>(5);
@@ -30,51 +35,95 @@ export default function App() {
   const [dropdownOptions, ] = useState<Array<string>>(["Title", "Author", "Category"])
   const [selectedDropdownOptionIndex, setSelectedDropdownOptionIndex] = useState<number>(0);
 
-  function mainFormSubmitCallback(event: FormEvent) {
-    
-    event.preventDefault();
-    
-    setPageNo(0);
-    const input_textinput: HTMLInputElement | null = document.querySelector("#input_textinput");
-    
-    if (input_textinput !== null) {
-
-      setFetchingState(true);
-
-      const selected_searchBy: string = dropdownOptions[selectedDropdownOptionIndex];
-
-      searchBook(selected_searchBy, 
-        (selected_searchBy === "category") ? 
-        input_textinput.value.toUpperCase() :
-        input_textinput.value, 
-        pageNo, pageSize
-      ).then(
-    
-        (result: any) => {
-          // output_textarea.value = JSON.stringify(result.data);
-          setFetchedBooks(() => {
-            let newFetchedBooks: Array<bookdata_inter> = [];
-            
-            result.data.forEach((bookitem: any) => {
-              newFetchedBooks.push({
-                id: bookitem._id, 
-                title: bookitem.title, 
-                author: bookitem.author, 
-                category: bookitem.category, 
-                cover_url: bookitem.cover_url, 
-                description: bookitem.descriptions
-              });
+  function fetchData() {
+    setFetchingState(true);
+    searchBook(searchBy, searchFor, pageNo, pageSize).then(
+      (result: any) => {
+        setFetchedBooks(() => {
+          let newFetchedBooks: Array<bookdata_inter> = [];
+          
+          console.log(result);
+          
+          result.data.forEach((bookitem: any) => {
+            newFetchedBooks.push({
+              id: bookitem._id, 
+              title: bookitem.title, 
+              author: bookitem.author, 
+              category: bookitem.category, 
+              cover_url: bookitem.cover_url, 
+              description: bookitem.descriptions
             });
-            
-            return newFetchedBooks;
           });
-        }
-      ).finally(
-    
-        () => {setFetchingState(false);}
-    
-      );
+          
+          return newFetchedBooks;
+        });
+        console.log("Set Fetched Books");
+      }
+    ).finally(
+      () => {
+        setFetchingState(false);
+        console.log(fetchedBooks);
+      }
+    );
+
+  }
+
+  useEffect(() => {
+    if (searchFor !== "" && searchBy !== "") {
+      console.log("Fetching book data");
+      fetchData();
     }
+  }, [pageNo, searchBy, searchFor]);
+
+  function mainFormSubmitCallback(event: FormEvent) {
+    console.log("Form submitted");
+    event.preventDefault();
+    setPageNo(0);
+    setSearchBy(() => {
+      let newSearchBy: string = dropdownOptions[selectedDropdownOptionIndex];
+      return newSearchBy;
+    });
+    const input_textinput: HTMLInputElement | null = document.querySelector("#input_textinput");
+    if (input_textinput !== null) setSearchFor(input_textinput.value);
+    // fetchData();
+    // if (input_textinput !== null) {
+
+    //   setFetchingState(true);
+
+    //   const selected_searchBy: string = dropdownOptions[selectedDropdownOptionIndex];
+
+    //   searchBook(selected_searchBy, 
+    //     (selected_searchBy === "category") ? 
+    //     input_textinput.value.toUpperCase() :
+    //     input_textinput.value, 
+    //     pageNo, pageSize
+    //   ).then(
+    
+    //     (result: any) => {
+    //       // output_textarea.value = JSON.stringify(result.data);
+    //       setFetchedBooks(() => {
+    //         let newFetchedBooks: Array<bookdata_inter> = [];
+            
+    //         result.data.forEach((bookitem: any) => {
+    //           newFetchedBooks.push({
+    //             id: bookitem._id, 
+    //             title: bookitem.title, 
+    //             author: bookitem.author, 
+    //             category: bookitem.category, 
+    //             cover_url: bookitem.cover_url, 
+    //             description: bookitem.descriptions
+    //           });
+    //         });
+            
+    //         return newFetchedBooks;
+    //       });
+    //     }
+    //   ).finally(
+    
+    //     () => {setFetchingState(false);}
+    
+    //   );
+    // }
   }
 
   function changePageNo(decrement = false) {
@@ -93,46 +142,46 @@ export default function App() {
       })
 
     }
-    const input_textinput: HTMLInputElement | null = document.querySelector("#input_textinput");
+    // const input_textinput: HTMLInputElement | null = document.querySelector("#input_textinput");
     
-    if (input_textinput !== null) {
+    // if (input_textinput !== null) {
 
-      setFetchingState(true);
+    //   setFetchingState(true);
 
-      const selected_searchBy: string = dropdownOptions[selectedDropdownOptionIndex];
+    //   const selected_searchBy: string = dropdownOptions[selectedDropdownOptionIndex];
 
-      searchBook(selected_searchBy, 
-        (selected_searchBy === "category") ? 
-        input_textinput.value.toUpperCase() :
-        input_textinput.value, 
-        pageNo, pageSize
-      ).then(
+    //   searchBook(selected_searchBy, 
+    //     (selected_searchBy === "category") ? 
+    //     input_textinput.value.toUpperCase() :
+    //     input_textinput.value, 
+    //     pageNo, pageSize
+    //   ).then(
     
-        (result: any) => {
-          // output_textarea.value = JSON.stringify(result.data);
-          setFetchedBooks(() => {
-            let newFetchedBooks: Array<bookdata_inter> = [];
+    //     (result: any) => {
+    //       // output_textarea.value = JSON.stringify(result.data);
+    //       setFetchedBooks(() => {
+    //         let newFetchedBooks: Array<bookdata_inter> = [];
             
-            result.data.forEach((bookitem: any) => {
-              newFetchedBooks.push({
-                id: bookitem._id, 
-                title: bookitem.title, 
-                author: bookitem.author, 
-                category: bookitem.category, 
-                cover_url: bookitem.cover_url, 
-                description: bookitem.descriptions
-              });
-            });
+    //         result.data.forEach((bookitem: any) => {
+    //           newFetchedBooks.push({
+    //             id: bookitem._id, 
+    //             title: bookitem.title, 
+    //             author: bookitem.author, 
+    //             category: bookitem.category, 
+    //             cover_url: bookitem.cover_url, 
+    //             description: bookitem.descriptions
+    //           });
+    //         });
             
-            return newFetchedBooks;
-          });
-        }
-      ).finally(
+    //         return newFetchedBooks;
+    //       });
+    //     }
+    //   ).finally(
     
-        () => {setFetchingState(false);}
+    //     () => {setFetchingState(false);}
     
-      );
-    }
+    //   );
+    // }
 
   }
 
@@ -160,6 +209,10 @@ export default function App() {
         gap-0
         "
         >
+          <div
+          className="
+          text-bgLight
+          "> {fetchingState.toString()} </div>
           <div
           className="
           min-h-96
@@ -223,6 +276,7 @@ export default function App() {
             fetchedBooks.map((item, index) => {
               return (
                 <Bookcard 
+                key={index}
                 id={index.toString()}
                 bookdata={item} />
               );

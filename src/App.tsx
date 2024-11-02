@@ -13,9 +13,11 @@ import { searchBook } from "../public/scripts/searchBook";
 import Searchbar from "./components/Searchbar/Searchbar";
 import Submitbutton from "./components/Submitbutton/Submitbutton";
 import Bookcard from "./components/Bookcard/Bookcard";
+import Button from "./components/Button/Button";
 
 // Type imports
 import { bookdata_inter } from "./components/Bookcard/Bookcard";
+import LoadingIndicator from "./components/LoadingIndicator/LoadingIndicator";
 
 // ------------------------------------------------------------------------
 
@@ -42,8 +44,6 @@ export default function App() {
         setFetchedBooks(() => {
           let newFetchedBooks: Array<bookdata_inter> = [];
           
-          console.log(result);
-          
           result.data.forEach((bookitem: any) => {
             newFetchedBooks.push({
               id: bookitem._id, 
@@ -62,7 +62,6 @@ export default function App() {
     ).finally(
       () => {
         setFetchingState(false);
-        console.log(fetchedBooks);
       }
     );
 
@@ -211,10 +210,6 @@ export default function App() {
         >
           <div
           className="
-          text-bgLight
-          "> {fetchingState.toString()} </div>
-          <div
-          className="
           min-h-96
 
           gap-5
@@ -232,6 +227,15 @@ export default function App() {
             id="submit_button"
             text="Submit"
             />
+
+            <div
+            className="
+            text-bgLight
+            "> {
+              <LoadingIndicator display={fetchingState} />
+            } 
+            </div>
+          
           </div>
 
           {
@@ -244,7 +248,8 @@ export default function App() {
               flex-row
               ">
                 {/* <Submitbutton id="prevPage" text="<" callback={() => {changePageNo(true)}}/> */}
-                <button id="prevPage" onClick={(event) => {event.preventDefault(); changePageNo(true);}}> &lt; </button>
+                {/* <button id="prevPage" onClick={(event) => {event.preventDefault(); changePageNo(true);}}> &lt; </button> */}
+                <Button id={"prevPage"} callback={(event) => {event.preventDefault(); changePageNo(true);}} text="&lt;" disabled={(pageNo === 0)} />
                 <div
                 className="
                 min-w-16
@@ -264,7 +269,8 @@ export default function App() {
                 leading-5
                 "> {pageNo} </div>
                 {/* <Submitbutton id="nextPage" text=">" callback={() => {changePageNo(false)}}/> */}
-                <button id="nextPage" onClick={(event) => {event.preventDefault(); changePageNo(false);}}> &gt; </button>
+                {/* <button id="nextPage" onClick={(event) => {event.preventDefault(); changePageNo(false);}}> &gt; </button> */}
+                <Button id={"prevPage"} callback={(event) => {event.preventDefault(); changePageNo(false);}} text="&gt;" />
               </div>
             ) :
             (

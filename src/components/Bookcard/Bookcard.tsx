@@ -55,6 +55,7 @@ function Bookcard(
                     event.target.src="https://placehold.co/200x300/png"; 
                 }
             }
+            loading="eager"
             />
 
             <h1
